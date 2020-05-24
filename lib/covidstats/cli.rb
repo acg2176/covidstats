@@ -8,7 +8,17 @@ class Covidstats::CLI
   def world_stats
     puts "To begin, would you like to see the world statistics for today? (y/n)"
     input = gets.strip
-    #call a function from the covidstats class
+    
+    if input == "y"
+      puts "Here are the world statistics:"
+      #call a function from the covidstats class
+    else
+      list_of_actions
+    end
+  end
+  
+  def list_of_actions
+    puts "Here are the other things you can do with this gem:"
   end
   
 end
