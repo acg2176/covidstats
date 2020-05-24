@@ -1,0 +1,3 @@
+class Covidstats::Covid
+
+end
