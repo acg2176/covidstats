@@ -18,16 +18,28 @@ class Covidstats::Covid
   
   
   
-  
-  def self.get_reports
-    Covidstats::API.get_reports #hashes
+  def hash_attr(hashlist) #list of hashes taken from API get_reports
+    #go through the loop and create instance attributes for each key
+    #hashlist => self.get_reports
+    hashlist.each do |hash|
+      @total_cases = hash["TotalCases"]
+      @new_cases = hash["NewCases"]
+        
+    
+    end
   end
   
-  def self.get_world_stats
-    @world_report = self.get_reports[0] #hash for get_world_stats
+  
+  
+  def self.get_reports
+    Covidstats::API.get_reports #list of hashes
+  end
+  
+  def self.get_world_stats #this method only displays the stats. it does not create an object
+    @world_report = self.get_reports[0] #hash for world stats only
     @world_report.each do |key, value|
       if key != "Country" && key != "#" && value != ""
-        value = value.gsub(",","").gsub("+","")
+        value = value.gsub(",","").gsub("+","")  #removes + and , signs
         puts "#{key}: #{value}"
       end
     end

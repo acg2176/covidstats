@@ -10,7 +10,7 @@ class Covidstats::API
  
    end
    
-  # def self.get_state_reports
+  # def self.get_US_state_reports
      
   # end
  end
