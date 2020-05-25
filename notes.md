@@ -13,3 +13,5 @@ each country is an instance
 
 
 each state is an instance
+
+make a [ ] of all the objects
