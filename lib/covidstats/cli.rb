@@ -10,7 +10,7 @@ class Covidstats::CLI
     input = gets.strip
     
     if input == "y"
-      puts "Here are the world statistics:"
+      puts "Here are the World Statistics:"
       #call a function from the covidstats class
       Covidstats::Covid.get_world_stats
     else
