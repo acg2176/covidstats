@@ -3,36 +3,39 @@ class Covidstats::CLI
     puts "Welcome to the daily corona tracker! This CLI app provides real time data regarding the ongoing coronavirus pandemic and includes information from numerous countries. As the USA has become the hardest hit country with nearly 100,000 deaths as of May 2020, this gem includes additional data on USA cases by states."
     #A few things you can do on this app
     world_stats
-    #country_select
   end
   
-  def world_stats
-    puts "To begin, would you like to see the world statistics for today? (y/n)"
-    input = gets.strip
-    
-    if input == "y"
-      puts "Here are the World Statistics:"
-      #call a function from the covidstats class
-      Covidstats::Covid.get_world_stats
-      puts "Would you like to do anything else? (y/n)"
+  def ask_for_choices       #asks if there is anything user still wants to do
+     puts "Would you like to do anything else? (y/n)"
       input = gets.strip
       if input == "y"
         list_of_actions
       else
         puts "Ok, thanks for using Covidstats for today!"
       end
-      
+  end
+  
+  def world_stats
+    puts "To begin, would you like to see the world statistics for today? (y/n)"
+    input = gets.strip
+    if input == "y"
+      puts "Here are the World Statistics:"
+      #call a function from the covidstats class
+      Covidstats::Covid.get_world_stats
+      ask_for_choices
     else
       list_of_actions
     end
   end
   
   def list_of_actions
-    puts "Please select what you would like to do:"
-    #by Continent
-    #by country
-    #fatality rates
-    #list of countries with highest rates
+    prompt = TTY::Prompt.new
+    choice = prompt.select("Please select what you would like to do:") do |prompt|
+      prompt.choice "stats_by_country"
+      prompt.choice "stats_by_continent"
+      prompt.choice "top_10_countries_w_highest_cases"
+    end
+   country_select if choice == "stats_by_country"
   end
   
   def country_select
@@ -40,6 +43,7 @@ class Covidstats::CLI
     input = gets.strip #add some constraints here
     country = Covidstats::Covid.new(input) #creates the new instance
     display_stats(country)
+    ask_for_choices
   end
   
   def display_stats(country)
