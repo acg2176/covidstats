@@ -22,7 +22,7 @@ class Covidstats::CLI
       puts "Here are the World Statistics:"
       #call a function from the covidstats class
       #Covidstats::Covid.get_world_stats
-      world = Covidstats::Covid.new("World")
+      world = Covidstats::Country.new("World")
       display_stats(world)
       ask_for_choices
     else
@@ -45,7 +45,7 @@ class Covidstats::CLI
   def country_select
     puts "Enter the name of the country you would like to search:"
     input = gets.strip #add some constraints here
-    country = Covidstats::Covid.new(input) #creates the new instance
+    country = Covidstats::Country.new(input) #creates the new instance
     display_stats(country)
     ask_for_choices
   end

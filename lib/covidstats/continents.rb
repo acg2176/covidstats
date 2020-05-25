@@ -1,0 +1,3 @@
+class Covid::Continents
+  
+end

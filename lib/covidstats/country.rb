@@ -1,5 +1,5 @@
 require 'pry'
-class Covidstats::Covid
+class Covidstats::Country
   #"TotalCases"=>"5,490,720",
   # "NewCases"=>"+92,770",
   # "TotalDeaths"=>"346,319",
