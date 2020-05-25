@@ -10,7 +10,7 @@ Fix world stats remove "#" and remove world
 each country is an instance
 put some constraints on the input?
 NOTE: USA needs to be all caps. (usa, united states, united states of america)
-
+IMPORTANT: grab all countries and inspect how they are written
 
 
 each state is an instance
