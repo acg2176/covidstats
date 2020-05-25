@@ -14,7 +14,8 @@ class Covidstats::Covid
   # "Serious_Critical"=>"53,228",
   # "Tests_1M_Pop"=>"",
   # "TotCases_1M_Pop"=>"704"},
-  attr_accessor :total_cases, :new_cases, :total_deaths, :new_deaths, :total_recovered, :active_cases, :total_tests, :population, :continent, :deaths_per_mil, :serious_critical, :tests_per_mil, :total_cases_per_mil
+  
+   attr_accessor :total_cases, :new_cases, :total_deaths, :new_deaths, :total_recovered, :active_cases, :total_tests, :population, :continent, :deaths_per_mil, :serious_critical, :tests_per_mil, :total_cases_per_mil
   @@all = [] #array of all the country instances
   def initialize(country_name)
     @country = country_name
@@ -42,6 +43,7 @@ class Covidstats::Covid
       @total_cases_per_mil = hash["TotCases_1M_Pop"]
     end
   end
+
   
   
   
