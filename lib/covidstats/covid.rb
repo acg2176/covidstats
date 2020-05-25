@@ -29,26 +29,25 @@ class Covidstats::Covid
   def select_hash(name)
     hashlist = Covidstats::API.get_reports.select {|hash| hash["Country"] == name} #this is still an array
     hash_attr(hashlist[0])
-    #binding.pry
   end
   
   
   def hash_attr(hash)      #given a hash, returns all the attributes
-      @total_cases = hash["TotalCases"]
-      @new_cases = hash["NewCases"]
-      @total_deaths = hash["TotalDeaths"]
-      @new_deaths = hash["NewDeaths"]
-      @total_recovered = hash["TotalRecovered"]
-      @active_cases = hash["ActiveCases"]
-      @total_tests = hash["TotalTests"]
-      @population = hash["Population"]
-      @continent = hash["Continent"]
-      @deaths_per_mil = hash["Deaths_1M_pop"]
-      #@name = hash["Country"]
-      @serious_critical = hash["Serious_Critical"]
-      @tests_per_mil = hash["Tests_1M_Pop"]
-      @total_cases_per_mil = hash["TotCases_1M_Pop"]
-    
+    hash = hash.each {|key, value| hash[key] = value.gsub(",","").gsub("+","")}
+    @total_cases = hash["TotalCases"]
+    @new_cases = hash["NewCases"]
+    @total_deaths = hash["TotalDeaths"]
+    @new_deaths = hash["NewDeaths"]
+    @total_recovered = hash["TotalRecovered"]
+    @active_cases = hash["ActiveCases"]
+    @total_tests = hash["TotalTests"]
+    @population = hash["Population"]
+    @continent = hash["Continent"]
+    @deaths_per_mil = hash["Deaths_1M_pop"]
+    #@name = hash["Country"]
+    @serious_critical = hash["Serious_Critical"]
+    @tests_per_mil = hash["Tests_1M_Pop"]
+    @total_cases_per_mil = hash["TotCases_1M_Pop"]
   end
 
   def self.get_reports

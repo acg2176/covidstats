@@ -14,6 +14,7 @@ class Covidstats::CLI
       puts "Here are the World Statistics:"
       #call a function from the covidstats class
       Covidstats::Covid.get_world_stats
+      #display_stats
     else
       list_of_actions
     end
@@ -21,13 +22,32 @@ class Covidstats::CLI
   
   def list_of_actions
     puts "Here are the other things you can do with this gem:"
+    #by Continent
+    #by country
+    #fatality rates
   end
   
   def country_select
     puts "Enter the name of the country you would like to search:"
-    input = gets.strip
-    Covidstats::Covid.new(input)
-    
+    input = gets.strip #add some constraints here
+    country = Covidstats::Covid.new(input) #creates the new instance
+    display_stats(country)
+  end
+  
+  def display_stats(country)
+    #displays all the stats
+    puts "Total Cases: #{country.total_cases}"
+    puts "New Cases: #{country.new_cases}"
+    puts "Total Deaths: #{country.total_deaths}"
+    puts "Total Recovered: #{country.total_recovered}"
+    puts "Active Cases: #{country.active_cases}"
+    puts "Total Tests: #{country.total_tests}"
+    puts "Population: #{country.population}"
+    puts "Continent: #{country.continent}"
+    puts "Deaths per Million: #{country.deaths_per_mil}"
+    puts "Number of Serious/Critical Cases: #{country.serious_critical}"
+    puts "Tests per Million: #{country.tests_per_mil}"
+    puts "Total Cases per Million: #{country.total_cases_per_mil}"
   end
   
 end
