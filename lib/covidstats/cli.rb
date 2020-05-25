@@ -3,7 +3,7 @@ class Covidstats::CLI
     puts "Welcome to the daily corona tracker! This CLI app provides real time data regarding the ongoing coronavirus pandemic and includes information from numerous countries. As the USA has become the hardest hit country with nearly 100,000 deaths as of May 2020, this gem includes additional data on USA cases by states."
     #A few things you can do on this app
     world_stats
-    country_select
+    #country_select
   end
   
   def world_stats
@@ -14,17 +14,25 @@ class Covidstats::CLI
       puts "Here are the World Statistics:"
       #call a function from the covidstats class
       Covidstats::Covid.get_world_stats
-      #display_stats
+      puts "Would you like to do anything else? (y/n)"
+      input = gets.strip
+      if input == "y"
+        list_of_actions
+      else
+        puts "Ok, thanks for using Covidstats for today!"
+      end
+      
     else
       list_of_actions
     end
   end
   
   def list_of_actions
-    puts "Here are the other things you can do with this gem:"
+    puts "Please select what you would like to do:"
     #by Continent
     #by country
     #fatality rates
+    #list of countries with highest rates
   end
   
   def country_select

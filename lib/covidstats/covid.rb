@@ -21,16 +21,14 @@ class Covidstats::Covid
   
   def initialize(country_name)
    @name = country_name
-   #select the hash where @name == hash["Country"]
-   select_hash(country_name)
-   @@all << self
+   select_hash(country_name)  #select the hash where @name == hash["Country"]
+   save
   end
   
   def select_hash(name)
     hashlist = Covidstats::API.get_reports.select {|hash| hash["Country"] == name} #this is still an array
     hash_attr(hashlist[0])
   end
-  
   
   def hash_attr(hash)      #given a hash, returns all the attributes
     hash = hash.each {|key, value| hash[key] = value.gsub(",","").gsub("+","")}
@@ -53,6 +51,14 @@ class Covidstats::Covid
     Covidstats::API.get_reports #list of hashes
   end
   
+  def self.all
+    @@all
+  end
+  
+  def save
+    @@all << self
+  end
+  
   def self.get_world_stats #this method only displays the stats. it does not create an object
     @world_report = self.get_reports[0] #hash for world stats only
     @world_report.each do |key, value|
@@ -64,6 +70,4 @@ class Covidstats::Covid
   end
   
   
-    # world = @world_report["Country"]
-    # puts "#{world}"
 end

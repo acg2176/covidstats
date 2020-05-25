@@ -1,5 +1,6 @@
 require 'pry'
 require 'httparty'
+require 'tty-prompt'
 
 
 require_relative "covidstats/version"
