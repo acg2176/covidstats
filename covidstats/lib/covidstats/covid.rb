@@ -1,4 +1,4 @@
-reuire 'pry'
+require 'pry'
 class Covidstats::Covid
   #"TotalCases"=>"5,490,720",
   # "NewCases"=>"+92,770",
