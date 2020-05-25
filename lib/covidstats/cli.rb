@@ -21,7 +21,9 @@ class Covidstats::CLI
     if input == "y"
       puts "Here are the World Statistics:"
       #call a function from the covidstats class
-      Covidstats::Covid.get_world_stats
+      #Covidstats::Covid.get_world_stats
+      world = Covidstats::Covid.new("World")
+      display_stats(world)
       ask_for_choices
     else
       list_of_actions
@@ -34,6 +36,8 @@ class Covidstats::CLI
       prompt.choice "stats_by_country"
       prompt.choice "stats_by_continent"
       prompt.choice "top_10_countries_w_highest_cases"
+      prompt.choice ""
+      #can add more choices
     end
    country_select if choice == "stats_by_country"
   end
