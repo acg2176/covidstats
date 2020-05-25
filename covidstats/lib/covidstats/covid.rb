@@ -1,4 +1,4 @@
-reuire 'pry'
+require 'pry'
 class Covidstats::Covid
   #"TotalCases"=>"5,490,720",
   # "NewCases"=>"+92,770",
@@ -25,12 +25,15 @@ class Covidstats::Covid
   
   def self.get_world_stats
     @world_report = self.get_reports[0] #hash for get_world_stats
-    
     @world_report.each do |key, value|
-      value = value.gsub(",","").gsub("+","")
-      puts "#{key}, #{value}"
-      binding.pry
+      if key != "Country" && key != "#" && value != ""
+        value = value.gsub(",","").gsub("+","")
+        puts "#{key}: #{value}"
+      end
     end
   end
   
+  
+    # world = @world_report["Country"]
+    # puts "#{world}"
 end

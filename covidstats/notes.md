@@ -3,3 +3,7 @@
 3. ask for country and get the full stats
 4. list of top 10 countries and fatality Rate
 5. top 10 states in the US with highest unmber of cases, deaths, hospitalizations
+
+Fix world stats remove "#" and remove world
+
+
