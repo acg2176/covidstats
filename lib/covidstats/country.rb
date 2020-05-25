@@ -46,7 +46,9 @@ class Covidstats::Country
     @tests_per_mil = hash["Tests_1M_Pop"] if hash.include?("Tests_1M_Pop")
     @total_cases_per_mil = hash["TotCases_1M_Pop"] if hash.include?("TotCases_1M_Pop")
   end
-
+  
+  
+  ##chech if i really need this?
   def self.get_reports
     Covidstats::API.get_reports #list of hashes
   end

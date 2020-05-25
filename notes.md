@@ -7,7 +7,7 @@
 6. 
 
 
-
+Continent Class
 Stats by continent
 turn each attribute into an INTEGER that can be aggregated
 

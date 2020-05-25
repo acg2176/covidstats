@@ -9,7 +9,4 @@ class Covidstats::API
     reports = reports[0]["table"][0] #array of hashes that are all the reports/stats per country
    end
    
-  # def self.get_US_state_reports
-     
-  # end
 end
