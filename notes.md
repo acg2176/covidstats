@@ -7,3 +7,9 @@
 Fix world stats remove "#" and remove world
 
 
+each country is an instance
+
+
+
+
+each state is an instance
