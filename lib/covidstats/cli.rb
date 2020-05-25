@@ -12,6 +12,7 @@ class Covidstats::CLI
     if input == "y"
       puts "Here are the world statistics:"
       #call a function from the covidstats class
+      Covidstats::Covid.get_world_stats
     else
       list_of_actions
     end

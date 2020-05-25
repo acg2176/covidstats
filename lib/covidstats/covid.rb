@@ -25,11 +25,9 @@ class Covidstats::Covid
   
   def self.get_world_stats
     @world_report = self.get_reports[0] #hash for get_world_stats
-    
     @world_report.each do |key, value|
       value = value.gsub(",","").gsub("+","")
       puts "#{key}, #{value}"
-      binding.pry
     end
   end
   
