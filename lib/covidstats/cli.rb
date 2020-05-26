@@ -54,7 +54,7 @@ class Covidstats::CLI
   def country_select
     puts "Enter the name of the country you would like to search:"
     input = gets.strip #ADD CONSTRAINTS TO WHAT CAN BE PUT IN HERE
-    binding.pry
+    #binding.pry
     #select the country where input == country.name
     Covidstats::Country.all.each do |country|
       if country.name == input

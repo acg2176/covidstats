@@ -68,7 +68,6 @@ class Covidstats::Country
   end
   
   def self.all
-    get_reports if @@all = []
     @@all
   end
   
