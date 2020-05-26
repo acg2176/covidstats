@@ -14,7 +14,7 @@ class Covidstats::Continents
   end
 
   #find way to loop this
-  def continent_reports #for continents: list of hashes per continent
+  def self.continent_reports #for continents: list of hashes per continent
     continents_array = []
     hash_continents = Covidstats::API.get_reports #list of all hashes
     
@@ -36,7 +36,7 @@ class Covidstats::Continents
     australia = hash_continents.select{|hash| hash["Continent"] == "Australia/Oceania"}
     continents_array << merge_hash(australia)
     
-    continents_array #list of hashes of the continents
+    continents_array #list of hashes of the continents 6 total
   end
   
   def self.create_from_collection(continents_array)
@@ -46,7 +46,7 @@ class Covidstats::Continents
   end
   
   #merge hashes in the array and aggregate the values
-  def merge_hash(continent_array)
+  def merge_hash(continents_array)
     new_hash = {}
     new_hash["TotalCases"] = 0 
     new_hash["NewCases"] = 0
@@ -56,7 +56,7 @@ class Covidstats::Continents
     new_hash["ActiveCases"] = 0 
     new_hash["TotalTests"] = 0
     new_hash["Serious_Critical"] = 0
-    continent_array.each do |hash|
+    continents_array.each do |hash|
       #change the strings into integers; remove string keys and aggregate the values
       hash.each do |key, value|
         if key != "Country" && key != "" && key != "Deaths_1M_pop" && key != "TotCases_1M_Pop" && key != "Population" && key != "Tests_1M_Pop"

@@ -2,7 +2,7 @@ require 'pry'
 class Covidstats::CLI 
   def call
     get_all_countries
-    #get_all_continents
+    get_all_continents
     puts "Welcome to the daily corona tracker! This CLI app provides real time data regarding the ongoing coronavirus pandemic and includes information from numerous countries. As the USA has become the hardest hit country with nearly 100,000 deaths as of May 2020, this gem includes additional data on USA cases by states."
     world_stats
   end
@@ -10,7 +10,11 @@ class Covidstats::CLI
   def get_all_countries
     countries_array = Covidstats::API.get_reports
     Covidstats::Country.create_from_collection(countries_array)
-   
+  end
+  
+  def get_all_continents
+    continents_array = Covidstats::Continents.continent_reports
+    Covidstats::Continents.create_from_collection(continents_array)
   end
   
   def ask_for_choices       #asks if there is anything user still wants to do
