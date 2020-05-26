@@ -19,39 +19,49 @@ class Covidstats::Country
   @@all = [] #array of all the country instances
   
   
-  def initialize(country_name)
-   @name = country_name
-   select_hash(country_name)  #select the hash where @name == hash["Country"]
-   save
-   #binding.pry
+  # def initialize(country_name)
+  # @name = country_name
+  # select_hash(country_name)  #select the hash where @name == hash["Country"]
+  # save
+  # #binding.pry
+  # end
+  
+  def initialize(country_hash)
+    hash_attr(country_hash)
+    save
   end
   
-  def select_hash(name)
-    hashlist = Covidstats::API.get_reports.select {|hash| hash["Country"] == name} #this is still an array
-    hash_attr(hashlist[0])
-  end
+  
+  # def select_hash(name)
+  #   hashlist = Covidstats::API.get_reports.select {|hash| hash["Country"] == name} #this is still an array
+  #   hash_attr(hashlist[0])
+  # end
   
   def hash_attr(hash)      #given a hash, returns all the attributes
     hash = hash.each {|key, value| hash[key] = value.gsub(",","").gsub("+","")}
-    @total_cases = hash["TotalCases"]
-    @new_cases = hash["NewCases"]
-    @total_deaths = hash["TotalDeaths"]
-    @new_deaths = hash["NewDeaths"]
-    @total_recovered = hash["TotalRecovered"]
-    @active_cases = hash["ActiveCases"]
-    @total_tests = hash["TotalTests"]
-    @population = hash["Population"]
-    @continent = hash["Continent"]
-    @deaths_per_mil = hash["Deaths_1M_pop"]
-    @serious_critical = hash["Serious_Critical"]
-    @tests_per_mil = hash["Tests_1M_Pop"]
-    @total_cases_per_mil = hash["TotCases_1M_Pop"]
+    @total_cases = hash.values[1]
+    @new_cases = hash.values[2]
+    @total_deaths = hash.values[3]
+    @new_deaths = hash.values[4]
+    @total_recovered = hash.values[5]
+    @active_cases = hash.values[6]
+    @total_tests = hash.values[7]
+    @population = hash.values[8]
+    @continent = hash.values[9]
+    @deaths_per_mil = hash.values[10]
+    @name = hash.values[11]
+    @serious_critical = hash.values[12]
+    @tests_per_mil = hash.values[13]
+    @total_cases_per_mil = hash.values[14]
   end
   
-  
-  ##chech if i really need this?
+
   def self.get_reports
     Covidstats::API.get_reports #list of hashes
+  end
+  
+  def self.create_from_collection(countries_array)
+    countries_array.each{|country| self.new(country)} #country is a hash
   end
   
   def self.all
@@ -63,15 +73,15 @@ class Covidstats::Country
     @@all << self
   end
   
-  def self.get_world_stats #this method only displays the stats. it does not create an object
-    @world_report = self.get_reports[0] #hash for world stats only
-    @world_report.each do |key, value|
-      if key != "Country" && key != "#" && value != ""
-        value = value.gsub(",","").gsub("+","")  #removes + and , signs
-        puts "#{key}: #{value}"
-      end
-    end
-  end
+  # def self.get_world_stats #this method only displays the stats. it does not create an object
+  #   @world_report = self.get_reports[0] #hash for world stats only
+  #   @world_report.each do |key, value|
+  #     if key != "Country" && key != "#" && value != ""
+  #       value = value.gsub(",","").gsub("+","")  #removes + and , signs
+  #       puts "#{key}: #{value}"
+  #     end
+  #   end
+  # end
   
   
 end
