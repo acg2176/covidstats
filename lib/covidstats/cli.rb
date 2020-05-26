@@ -40,6 +40,7 @@ class Covidstats::CLI
       #can add more choices
     end
    country_select if choice == "stats_by_country"
+   continent_select if choice == "stats_by_continent"
   end
   
   def country_select
@@ -51,9 +52,9 @@ class Covidstats::CLI
   end
   
   def continent_select
-    puts "Enter the name of the country you would like to search:"
+    puts "Enter the name of the continent you would like to search:"
     input = gets.strip
-    Covidstats::Continent.new(input) #creates the new instance
+    Covidstats::Continents.new(input) #creates the new instance
   end
   
   def display_stats(country)

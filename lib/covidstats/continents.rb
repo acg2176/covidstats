@@ -5,18 +5,25 @@ class Covidstats::Continents
   
   def initialize(continent_name)
     @continent = continent_name
-    merge_hash(continent_name) #select the list of hash by the specified continent
-    binding.pry
+    merge_hash(continent_name) #select the list of hash by the specified continent and gets the attributes
+
   end
   
   def continent_reports(continent) #for continents: list of hashes per continent
-    hash_continents = Covidstats::API.get_reports #list of all hashes 
-    hash_continents.select{|hash| hash["Continent"] == "Asia"} if continent == "Asia"
-    hash_continents.select{|hash| hash["Continent"] == "Africa"} if continent == "Africa"
-    hash_continents.select{|hash| hash["Continent"] == "Europe"} if continent == "Europe"
-    hash_continents.select{|hash| hash["Continent"] == "North America"} if continent == "North America"
-    hash_continents.select{|hash| hash["Continent"] == "South America"} if continent == "South America"
-    hash_continents.select{|hash| hash["Continent"] == "Australia/Oceania"} if continent == "Australia"
+    hash_continents = Covidstats::API.get_reports #list of all hashes
+    if continent == "Asia"
+      hash_continents.select{|hash| hash["Continent"] == "Asia"} 
+    elsif continent == "Africa"
+      hash_continents.select{|hash| hash["Continent"] == "Africa"}
+    elsif continent == "Europe"
+      hash_continents.select{|hash| hash["Continent"] == "Europe"} 
+    elsif continent == "North America"
+      hash_continents.select{|hash| hash["Continent"] == "North America"} 
+    elsif continent == "South America"
+      hash_continents.select{|hash| hash["Continent"] == "South America"}
+    elsif continent == "Australia"
+      hash_continents.select{|hash| hash["Continent"] == "Australia/Oceania"}
+    end
   end
   
   #merge hashes in the array and aggregate the values
@@ -24,17 +31,18 @@ class Covidstats::Continents
     new_hash = {}
     new_hash["TotalCases"] = 0 
     new_hash["NewCases"] = 0
-    new_cases["TotalDeaths"] = 0 
-    new_cases["NewDeaths"] = 0 
-    new_cases["TotalRecovered"] = 0 
-    new_cases["ActiveCases"] = 0 
-    new_cases["TotalTests"] = 0
-    new_cases["Serious_Critical"] = 0
+    new_hash["TotalDeaths"] = 0 
+    new_hash["NewDeaths"] = 0 
+    new_hash["TotalRecovered"] = 0 
+    new_hash["ActiveCases"] = 0 
+    new_hash["TotalTests"] = 0
+    new_hash["Serious_Critical"] = 0
     continent_reports(continent_name).each do |hash|
       #change the strings into integers; remove string keys and aggregate the values
       hash.each do |key, value|
         if key != "Country" && key != "" && key != "Deaths_1M_pop" && key != "TotCases_1M_Pop" && key != "Population" && key != "Tests_1M_Pop"
-          hash[key] = value.gsub(",","").gsub("+","").to_i
+          hash[key] = value.gsub(",","").gsub("+","")
+          hash[key] = hash[key].to_i #FIXED
           if key == "TotalCases"
             new_hash["TotalCases"] += hash[key]
           elsif key == "NewCases"
@@ -49,13 +57,21 @@ class Covidstats::Continents
             new_hash["ActiveCases"] += hash[key]
           elsif key == "TotalTests"
             new_hash["TotalTests"] += hash[key]
-          elsif key = "Serious_Critical"
+          elsif key == "Serious_Critical"
             new_hash["Serious_Critical"] += hash[key]
           end
         end
       end
     end
-    hash_attr(new_hash) #new merged hash with aggregate values
+    hash_attr(new_hash) #new merged hash with aggregate values {} 
+      #{"TotalCases"=>1916177,
+  # "NewCases"=>0,
+  # "TotalDeaths"=>168515,
+  # "NewDeaths"=>0,
+  # "TotalRecovered"=>892469,
+  # "ActiveCases"=>591308,
+  # "TotalTests"=>32582382,
+  # "Serious_Critical"=>9915}
   end
   
   def hash_attr(hash)      #given a hash, returns all the attributes
