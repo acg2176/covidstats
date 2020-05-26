@@ -33,14 +33,15 @@ class Covidstats::CLI
   def list_of_actions
     prompt = TTY::Prompt.new
     choice = prompt.select("Please select what you would like to do:") do |prompt|
-      prompt.choice "stats_by_country"
-      prompt.choice "stats_by_continent"
-      prompt.choice "top_10_countries_w_highest_cases"
-      prompt.choice ""
-      #can add more choices
+      prompt.choice "stats by country"
+      prompt.choice "stats by continent"
+      prompt.choice "top_10_countries_highest_cases"
+      prompt.choice "top 10 countries highest testing rate"
+      prompt.choice "top 10 countries highest fatality rate"
     end
-   country_select if choice == "stats_by_country"
-   continent_select if choice == "stats_by_continent"
+   country_select if choice == "stats by country"
+   continent_select if choice == "stats by continent"
+   highest_cases if choice == "top_10_countries_highest_cases"
   end
   
   def country_select
@@ -74,9 +75,7 @@ class Covidstats::CLI
     puts "Total Deaths: #{country.total_deaths}"
     puts "Total Recovered: #{country.total_recovered}"
     puts "Active Cases: #{country.active_cases}"
-    if country.total_tests != ""
-      puts "Total Tests: #{country.total_tests}"
-    end
+    puts "Total Tests: #{country.total_tests}"
     puts "Population: #{country.population}"
     puts "Continent: #{country.continent}"
     puts "Deaths per Million: #{country.deaths_per_mil}"
@@ -94,4 +93,12 @@ class Covidstats::CLI
     puts "Total Tests: #{continent.total_tests}"
     puts "Number of Serious/Critical Cases: #{continent.serious_critical}"
   end
+  
+  def highest_cases
+    Covidstats::Country.all.each do |country|
+      country.total_cases
+      #binding.pry
+    end
+  end
+  
 end

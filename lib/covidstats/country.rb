@@ -23,6 +23,7 @@ class Covidstats::Country
    @name = country_name
    select_hash(country_name)  #select the hash where @name == hash["Country"]
    save
+   #binding.pry
   end
   
   def select_hash(name)
@@ -32,19 +33,19 @@ class Covidstats::Country
   
   def hash_attr(hash)      #given a hash, returns all the attributes
     hash = hash.each {|key, value| hash[key] = value.gsub(",","").gsub("+","")}
-    @total_cases = hash["TotalCases"] if hash.include?("TotalCases")
-    @new_cases = hash["NewCases"] if hash.include?("NewCases")
-    @total_deaths = hash["TotalDeaths"] if hash.include?("TotalDeaths")
-    @new_deaths = hash["NewDeaths"] if hash.include?("NewDeaths")
-    @total_recovered = hash["TotalRecovered"] if hash.include?("TotalRecovered")
-    @active_cases = hash["ActiveCases"] if hash.include?("ActiveCases")
-    @total_tests = hash["TotalTests"] if hash.include?("TotalTests")
-    @population = hash["Population"] if hash.include?("Population")
-    @continent = hash["Continent"] if hash.include?("Continent")
-    @deaths_per_mil = hash["Deaths_1M_pop"] if hash.include?("Deaths_1M_pop")
-    @serious_critical = hash["Serious_Critical"] if hash.include?("Serious_Critical")
-    @tests_per_mil = hash["Tests_1M_Pop"] if hash.include?("Tests_1M_Pop")
-    @total_cases_per_mil = hash["TotCases_1M_Pop"] if hash.include?("TotCases_1M_Pop")
+    @total_cases = hash["TotalCases"]
+    @new_cases = hash["NewCases"]
+    @total_deaths = hash["TotalDeaths"]
+    @new_deaths = hash["NewDeaths"]
+    @total_recovered = hash["TotalRecovered"]
+    @active_cases = hash["ActiveCases"]
+    @total_tests = hash["TotalTests"]
+    @population = hash["Population"]
+    @continent = hash["Continent"]
+    @deaths_per_mil = hash["Deaths_1M_pop"]
+    @serious_critical = hash["Serious_Critical"]
+    @tests_per_mil = hash["Tests_1M_Pop"]
+    @total_cases_per_mil = hash["TotCases_1M_Pop"]
   end
   
   
@@ -54,6 +55,7 @@ class Covidstats::Country
   end
   
   def self.all
+    get_reports if @@all = []
     @@all
   end
   

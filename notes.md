@@ -17,7 +17,9 @@ turn each attribute into an INTEGER that can be aggregated
 Fixes:
 NOTE: USA needs to be all caps. (usa, united states, united states of america)
 IMPORTANT: grab all countries and inspect how they are written
-Clean up word_stats --> maybe turn it into display stats instead?
+check @@all method
+
+get the rates for top 10 countries
 
 
 
