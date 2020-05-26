@@ -1,10 +1,12 @@
-class Covid::Continents
+require 'pry'
+class Covidstats::Continents
   attr_accessor :total_cases, :new_cases, :total_deaths, :new_deaths, :total_recovered, :active_cases, :total_tests, :serious_critical
   @@all = []
   
   def initialize(continent_name)
     @continent = continent_name
-    continent_reports(continent_name) #select the list of hash by the specified continent
+    merge_hash(continent_name) #select the list of hash by the specified continent
+    binding.pry
   end
   
   def continent_reports(continent) #for continents: list of hashes per continent
@@ -18,7 +20,7 @@ class Covid::Continents
   end
   
   #merge hashes in the array and aggregate the values
-  def merge_hash(continent) #continent is a list of hashes
+  def merge_hash(continent_name)
     new_hash = {}
     new_hash["TotalCases"] = 0 
     new_hash["NewCases"] = 0
@@ -28,8 +30,8 @@ class Covid::Continents
     new_cases["ActiveCases"] = 0 
     new_cases["TotalTests"] = 0
     new_cases["Serious_Critical"] = 0
-    continent.each do |hash|
-      #change the strings into integers; remove country key and aggregate values
+    continent_reports(continent_name).each do |hash|
+      #change the strings into integers; remove string keys and aggregate the values
       hash.each do |key, value|
         if key != "Country" && key != "" && key != "Deaths_1M_pop" && key != "TotCases_1M_Pop" && key != "Population" && key != "Tests_1M_Pop"
           hash[key] = value.gsub(",","").gsub("+","").to_i
@@ -53,7 +55,23 @@ class Covid::Continents
         end
       end
     end
-    new_hash #new merged hash with aggregate values
+    hash_attr(new_hash) #new merged hash with aggregate values
+  end
+  
+  def hash_attr(hash)      #given a hash, returns all the attributes
+    @total_cases = hash["TotalCases"] if hash.include?("TotalCases")
+    @new_cases = hash["NewCases"] if hash.include?("NewCases")
+    @total_deaths = hash["TotalDeaths"] if hash.include?("TotalDeaths")
+    @new_deaths = hash["NewDeaths"] if hash.include?("NewDeaths")
+    @total_recovered = hash["TotalRecovered"] if hash.include?("TotalRecovered")
+    @active_cases = hash["ActiveCases"] if hash.include?("ActiveCases")
+    @total_tests = hash["TotalTests"] if hash.include?("TotalTests")
+    #@population = hash["Population"] if hash.include?("Population")
+   #@continent = hash["Continent"] if hash.include?("Continent")
+    #@deaths_per_mil = hash["Deaths_1M_pop"] if hash.include?("Deaths_1M_pop")
+    @serious_critical = hash["Serious_Critical"] if hash.include?("Serious_Critical")
+    #@tests_per_mil = hash["Tests_1M_Pop"] if hash.include?("Tests_1M_Pop")
+   # @total_cases_per_mil = hash["TotCases_1M_Pop"] if hash.include?("TotCases_1M_Pop")
   end
   
   

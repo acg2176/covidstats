@@ -2,6 +2,7 @@ class Covidstats::CLI
   def call
     puts "Welcome to the daily corona tracker! This CLI app provides real time data regarding the ongoing coronavirus pandemic and includes information from numerous countries. As the USA has become the hardest hit country with nearly 100,000 deaths as of May 2020, this gem includes additional data on USA cases by states."
     world_stats
+    continent_select
   end
   
   def ask_for_choices       #asks if there is anything user still wants to do
@@ -47,6 +48,12 @@ class Covidstats::CLI
     country = Covidstats::Country.new(input) #creates the new instance
     display_stats(country)
     ask_for_choices
+  end
+  
+  def continent_select
+    puts "Enter the name of the country you would like to search:"
+    input = gets.strip
+    Covidstats::Continent.new(input) #creates the new instance
   end
   
   def display_stats(country)
