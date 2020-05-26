@@ -1,4 +1,3 @@
-require 'pry'
 class Covidstats::Continents
   attr_accessor :total_cases, :new_cases, :total_deaths, :new_deaths, :total_recovered, :active_cases, :total_tests, :serious_critical
   @@all = []
@@ -6,7 +5,7 @@ class Covidstats::Continents
   def initialize(continent_name)
     @continent = continent_name
     merge_hash(continent_name) #select the list of hash by the specified continent and gets the attributes
-
+    save
   end
   
   def continent_reports(continent) #for continents: list of hashes per continent
@@ -88,6 +87,14 @@ class Covidstats::Continents
     @serious_critical = hash["Serious_Critical"] if hash.include?("Serious_Critical")
     #@tests_per_mil = hash["Tests_1M_Pop"] if hash.include?("Tests_1M_Pop")
    # @total_cases_per_mil = hash["TotCases_1M_Pop"] if hash.include?("TotCases_1M_Pop")
+  end
+  
+  def save
+    @@all << self
+  end
+  
+  def self.all
+    @@all
   end
   
   

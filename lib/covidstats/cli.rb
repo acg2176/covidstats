@@ -2,7 +2,6 @@ class Covidstats::CLI
   def call
     puts "Welcome to the daily corona tracker! This CLI app provides real time data regarding the ongoing coronavirus pandemic and includes information from numerous countries. As the USA has become the hardest hit country with nearly 100,000 deaths as of May 2020, this gem includes additional data on USA cases by states."
     world_stats
-    continent_select
   end
   
   def ask_for_choices       #asks if there is anything user still wants to do
@@ -11,7 +10,7 @@ class Covidstats::CLI
       if input == "y"
         list_of_actions
       else
-        puts "Ok, thanks for using Covidstats for today!"
+        puts "Ok, thanks for using Covidstats today!"
       end
   end
   
@@ -52,12 +51,21 @@ class Covidstats::CLI
   end
   
   def continent_select
-    puts "Enter the name of the continent you would like to search:"
-    input = gets.strip
-    Covidstats::Continents.new(input) #creates the new instance
+    prompt = TTY::Prompt.new
+    choice = prompt.select("Please select which continent:") do |prompt|
+      prompt.choice "Asia"
+      prompt.choice "South America"
+      prompt.choice "North America"
+      prompt.choice "Europe"
+       prompt.choice "Africa"
+      prompt.choice "Australia/Oceania"
+    end
+    continent = Covidstats::Continents.new(choice) #creates the new instance
+    display_stats_continent(continent)
+    ask_for_choices
   end
   
-  def display_stats(country)
+  def display_stats_country(country)
     #displays all the stats
     puts "Total Cases: #{country.total_cases}"
     puts "New Cases: #{country.new_cases}"
@@ -73,4 +81,13 @@ class Covidstats::CLI
     puts "Total Cases per Million: #{country.total_cases_per_mil}"
   end
   
+  def display_stats_continent(continent)
+    puts "Total Cases: #{continent.total_cases}"
+    puts "New Cases: #{continent.new_cases}"
+    puts "Total Deaths: #{continent.total_deaths}"
+    puts "Total Recovered: #{continent.total_recovered}"
+    puts "Active Cases: #{continent.active_cases}"
+    puts "Total Tests: #{continent.total_tests}"
+    puts "Number of Serious/Critical Cases: #{continent.serious_critical}"
+  end
 end
