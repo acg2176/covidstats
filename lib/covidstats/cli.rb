@@ -1,3 +1,4 @@
+require 'pry'
 class Covidstats::CLI 
   def call
     puts "Welcome to the daily corona tracker! This CLI app provides real time data regarding the ongoing coronavirus pandemic and includes information from numerous countries. As the USA has become the hardest hit country with nearly 100,000 deaths as of May 2020, this gem includes additional data on USA cases by states."
@@ -22,7 +23,7 @@ class Covidstats::CLI
       #call a function from the covidstats class
       #Covidstats::Covid.get_world_stats
       world = Covidstats::Country.new("World")
-      display_stats(world)
+      display_stats_country(world)
       ask_for_choices
     else
       list_of_actions
@@ -46,7 +47,7 @@ class Covidstats::CLI
     puts "Enter the name of the country you would like to search:"
     input = gets.strip #add some constraints here
     country = Covidstats::Country.new(input) #creates the new instance
-    display_stats(country)
+    display_stats_country(country)
     ask_for_choices
   end
   
@@ -67,12 +68,15 @@ class Covidstats::CLI
   
   def display_stats_country(country)
     #displays all the stats
+    #binding.pry
     puts "Total Cases: #{country.total_cases}"
     puts "New Cases: #{country.new_cases}"
     puts "Total Deaths: #{country.total_deaths}"
     puts "Total Recovered: #{country.total_recovered}"
     puts "Active Cases: #{country.active_cases}"
-    puts "Total Tests: #{country.total_tests}"
+    if country.total_tests != ""
+      puts "Total Tests: #{country.total_tests}"
+    end
     puts "Population: #{country.population}"
     puts "Continent: #{country.continent}"
     puts "Deaths per Million: #{country.deaths_per_mil}"
