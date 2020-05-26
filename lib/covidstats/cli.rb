@@ -1,7 +1,6 @@
 class Covidstats::CLI 
   def call
     puts "Welcome to the daily corona tracker! This CLI app provides real time data regarding the ongoing coronavirus pandemic and includes information from numerous countries. As the USA has become the hardest hit country with nearly 100,000 deaths as of May 2020, this gem includes additional data on USA cases by states."
-    #A few things you can do on this app
     world_stats
   end
   
