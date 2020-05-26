@@ -27,10 +27,9 @@ class Covidstats::CLI
     input = gets.strip
     if input == "y"
       puts "Here are the World Statistics:"
-      #call a function from the covidstats class
-      #Covidstats::Country.get_world_stats
+      Covidstats::Country.get_world_stats
       #world = Covidstats::Country.new("World")
-      display_stats_country(world)
+      #display_stats_country(world)
       ask_for_choices
     else
       list_of_actions
@@ -53,10 +52,12 @@ class Covidstats::CLI
   
   def country_select
     puts "Enter the name of the country you would like to search:"
-    input = gets.strip #add some constraints here
-    country_all = Covidstats::Country.create_from_collection()
-    country = Covidstats::Country.new(input) #creates the new instance
-    display_stats_country(country)
+    input = gets.strip #ADD CONSTRAINTS TO WHAT CAN BE PUT IN HERE
+    #select the country where input == country.name
+    Covidstats::Country.all.each do |country|
+      if country.name == input
+        display_stats_country(country) 
+    end
     ask_for_choices
   end
   

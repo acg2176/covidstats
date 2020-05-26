@@ -73,15 +73,15 @@ class Covidstats::Country
     @@all << self
   end
   
-  # def self.get_world_stats #this method only displays the stats. it does not create an object
-  #   @world_report = self.get_reports[0] #hash for world stats only
-  #   @world_report.each do |key, value|
-  #     if key != "Country" && key != "#" && value != ""
-  #       value = value.gsub(",","").gsub("+","")  #removes + and , signs
-  #       puts "#{key}: #{value}"
-  #     end
-  #   end
-  # end
+  def self.get_world_stats #this method only displays the stats. it does not create an object
+    @world_report = self.get_reports[0] #hash for world stats only
+    @world_report.each do |key, value|
+      if key != "Country" && key != "#" && value != ""
+        value = value.gsub(",","").gsub("+","")  #removes + and , signs
+        puts "#{key}: #{value}"
+      end
+    end
+  end
   
   
 end
