@@ -10,6 +10,7 @@ class Covidstats::CLI
   def get_all_countries
     countries_array = Covidstats::API.get_reports
     Covidstats::Country.create_from_collection(countries_array)
+   
   end
   
   def ask_for_choices       #asks if there is anything user still wants to do
@@ -53,10 +54,12 @@ class Covidstats::CLI
   def country_select
     puts "Enter the name of the country you would like to search:"
     input = gets.strip #ADD CONSTRAINTS TO WHAT CAN BE PUT IN HERE
+    binding.pry
     #select the country where input == country.name
     Covidstats::Country.all.each do |country|
       if country.name == input
-        display_stats_country(country) 
+        display_stats_country(country)
+      end
     end
     ask_for_choices
   end

@@ -15,7 +15,7 @@ class Covidstats::Country
   # "Tests_1M_Pop"=>"",
   # "TotCases_1M_Pop"=>"704"},
   
-   attr_accessor :total_cases, :new_cases, :total_deaths, :new_deaths, :total_recovered, :active_cases, :total_tests, :population, :continent, :deaths_per_mil, :serious_critical, :tests_per_mil, :total_cases_per_mil
+   attr_accessor :total_cases, :new_cases, :total_deaths, :new_deaths, :total_recovered, :active_cases, :total_tests, :population, :continent, :deaths_per_mil, :name, :serious_critical, :tests_per_mil, :total_cases_per_mil
   @@all = [] #array of all the country instances
   
   
@@ -61,7 +61,10 @@ class Covidstats::Country
   end
   
   def self.create_from_collection(countries_array)
-    countries_array.each{|country| self.new(country)} #country is a hash
+    countries_array.each do |country|
+       #binding.pry
+      self.new(country)
+    end     #country is a hash
   end
   
   def self.all
@@ -70,7 +73,7 @@ class Covidstats::Country
   end
   
   def save
-    @@all << self
+    @@all << self #instance
   end
   
   def self.get_world_stats #this method only displays the stats. it does not create an object
