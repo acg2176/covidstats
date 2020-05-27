@@ -17,9 +17,11 @@ turn each attribute into an INTEGER that can be aggregated
 Fixes:
 NOTE: USA needs to be all caps. (usa, united states, united states of america)
 IMPORTANT: grab all countries and inspect how they are written
-check @@all method
+
 
 get the rates for top 10 countries
+
+ADD COLORS TO THE STATS DISPLAY
 
 
 

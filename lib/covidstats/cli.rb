@@ -1,8 +1,6 @@
 require 'pry'
 class Covidstats::CLI 
   def call
-    get_all_countries
-    get_all_continents
     puts "Welcome to the daily corona tracker! This CLI app provides real time data regarding the ongoing coronavirus pandemic and includes information from numerous countries. As the USA has become the hardest hit country with nearly 100,000 deaths as of May 2020, this gem includes additional data on USA cases by states."
     world_stats
   end
@@ -13,9 +11,8 @@ class Covidstats::CLI
   end
   
   def get_all_continents
-    continents_array = Covidstats::Continents.continent_reports #WORKS
-    array = Covidstats::Continents.merge_hash(continents_array) #fix this
-    #binding.pry
+    continents_array = Covidstats::Continents.continent_reports
+    array = Covidstats::Continents.merge_hash(continents_array)
     Covidstats::Continents.create_from_collection(array)
   end
   
@@ -58,6 +55,7 @@ class Covidstats::CLI
   end
   
   def country_select
+    get_all_countries
     puts "Enter the name of the country you would like to search:"
     input = gets.strip #ADD CONSTRAINTS TO WHAT CAN BE PUT IN HERE
     #select the country where input == country.name
@@ -70,6 +68,7 @@ class Covidstats::CLI
   end
   
   def continent_select
+    get_all_continents
     prompt = TTY::Prompt.new
     choice = prompt.select("Please select which continent:") do |prompt|
       prompt.choice "Asia"
@@ -79,7 +78,6 @@ class Covidstats::CLI
        prompt.choice "Africa"
       prompt.choice "Australia/Oceania"
     end
-    #binding.pry
     Covidstats::Continents.all.each do |continent|
       if continent.name == choice
         display_stats_continent(continent)
@@ -89,8 +87,6 @@ class Covidstats::CLI
   end
   
   def display_stats_country(country)
-    #displays all the stats
-    #binding.pry
     puts "Total Cases: #{country.total_cases}"
     puts "New Cases: #{country.new_cases}"
     puts "Total Deaths: #{country.total_deaths}"
@@ -106,7 +102,6 @@ class Covidstats::CLI
   end
   
   def display_stats_continent(continent)
-    #binding.pry
     puts "Total Cases: #{continent.total_cases}"
     puts "New Cases: #{continent.new_cases}"
     puts "Total Deaths: #{continent.total_deaths}"

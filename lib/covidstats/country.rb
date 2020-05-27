@@ -56,9 +56,9 @@ class Covidstats::Country
   end
   
 
-  # def self.get_reports
-  #   Covidstats::API.get_reports #list of hashes
-  # end
+  def self.get_reports
+    Covidstats::API.get_reports #list of hashes
+  end
   
   def self.create_from_collection(countries_array)
     countries_array.each do |country|
