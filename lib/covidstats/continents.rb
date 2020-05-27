@@ -27,12 +27,11 @@ class Covidstats::Continents
     new_hash["ActiveCases"] = 0 
     new_hash["TotalTests"] = 0
     new_hash["Serious_Critical"] = 0
-    continents_array.each do |array| #6 total
-      array.each do |hash| #varies
+    continents_array.each do |array|
+      array.each do |hash|
         hash.each do |key, value|
           new_hash["Continent"] = hash["Continent"]
           if key != "Country" && key != "" && key != "Deaths_1M_pop" && key != "TotCases_1M_Pop" && key != "Population" && key != "Tests_1M_Pop" && key != "Continent" && value.class == String
-            #binding.pry
             hash[key] = value.gsub(",","").gsub("+","")
             hash[key] = hash[key].to_i
             if key == "TotalCases"
@@ -57,32 +56,7 @@ class Covidstats::Continents
       end
      new_array << new_hash
     end
-    new_array #[{}, {}, {}, {}, {}, {}]
-    #binding.pry
-#     [{"Continent"=>"Australia/Oceania",
-#   "TotalCases"=>5677425,
-#   "NewCases"=>92060,
-#   "TotalDeaths"=>351652,
-#   "NewDeaths"=>4054,
-#   "TotalRecovered"=>2426887,
-#   "ActiveCases"=>2630985,
-#   "TotalTests"=>74836478,
-#   "Serious_Critical"=>53097},
-# {"Continent"=>"Australia/Oceania",
-#   "TotalCases"=>5677425,
-#   "NewCases"=>92060,
-#   "TotalDeaths"=>351652,
-#   "NewDeaths"=>4054,
-#   "TotalRecovered"=>2426887,
-#   "ActiveCases"=>2630985,
-#   "TotalTests"=>74836478,
-#   "Serious_Critical"=>53097},
-# {"Continent"=>"Australia/Oceania",
-#   "TotalCases"=>5677425,
-#   "NewCases"=>92060,
-#   "TotalDeaths"=>351652,
-#   "NewDeaths"=>4054,
-#   "TotalRecovered"=>2426887,
+    new_array
   end
 
   #find way to loop this
@@ -107,7 +81,6 @@ class Covidstats::Continents
   def self.create_from_collection(continents_array)
     continents_array.each do |continent| #this is a hash
       self.new(continent)
-      binding.pry
     end
   end
   

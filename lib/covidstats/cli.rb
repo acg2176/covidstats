@@ -13,10 +13,9 @@ class Covidstats::CLI
   end
   
   def get_all_continents
-    continents_array = Covidstats::Continents.continent_reports #6 total
-    array = Covidstats::Continents.merge_hash(continents_array)#[{}, {}, {},] total
+    continents_array = Covidstats::Continents.continent_reports
+    array = Covidstats::Continents.merge_hash(continents_array)
     Covidstats::Continents.create_from_collection(array)
-    #binding.pry
   end
   
   def ask_for_choices       #asks if there is anything user still wants to do
@@ -60,7 +59,6 @@ class Covidstats::CLI
   def country_select
     puts "Enter the name of the country you would like to search:"
     input = gets.strip #ADD CONSTRAINTS TO WHAT CAN BE PUT IN HERE
-    #binding.pry
     #select the country where input == country.name
     Covidstats::Country.all.each do |country|
       if country.name == input
@@ -80,8 +78,12 @@ class Covidstats::CLI
        prompt.choice "Africa"
       prompt.choice "Australia/Oceania"
     end
-    continent = Covidstats::Continents.new(choice) #creates the new instance
-    display_stats_continent(continent)
+    binding.pry
+    Covidstats::Continents.all.each do |continent|
+      if continent.name == choice
+        display_stats_continent(continent)
+      end
+    end
     ask_for_choices
   end
   
@@ -103,9 +105,11 @@ class Covidstats::CLI
   end
   
   def display_stats_continent(continent)
+    #binding.pry
     puts "Total Cases: #{continent.total_cases}"
     puts "New Cases: #{continent.new_cases}"
     puts "Total Deaths: #{continent.total_deaths}"
+    puts "New Deaths: #{continent.new_deaths}"
     puts "Total Recovered: #{continent.total_recovered}"
     puts "Active Cases: #{continent.active_cases}"
     puts "Total Tests: #{continent.total_tests}"
