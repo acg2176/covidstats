@@ -123,7 +123,6 @@ class Covidstats::CLI
         arr_total_cases << country.total_cases
       end
     end
-    binding.pry
     top_10_cases = arr_total_cases.sort.reverse[0,10]
 #     [1736743,
 # 396166,
@@ -138,9 +137,9 @@ class Covidstats::CLI
     
     Covidstats::Country.all.each do |country| #[1,2,34,,56,]
       top_10_cases.each do |total_case| #[1,2,3,4,5,6,7]
-        binding.pry
+        #binding.pry
         if total_case == country.total_cases
-          puts "#{country.name}: #{country.total_case}"
+          puts "#{country.name}: #{country.total_cases}"
         end
       end
     end
