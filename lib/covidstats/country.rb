@@ -16,26 +16,16 @@ class Covidstats::Country
   # "TotCases_1M_Pop"=>"704"},
   
    attr_accessor :total_cases, :new_cases, :total_deaths, :new_deaths, :total_recovered, :active_cases, :total_tests, :population, :continent, :deaths_per_mil, :name, :serious_critical, :tests_per_mil, :total_cases_per_mil
-  @@all = [] #array of all the country instances
+  @@all = [] 
   
   
-  # def initialize(country_name)
-  # @name = country_name
-  # select_hash(country_name)  #select the hash where @name == hash["Country"]
-  # save
-  # #binding.pry
-  # end
-  
+
   def initialize(country_hash)
     hash_attr(country_hash)
     save
   end
   
-  
-  # def select_hash(name)
-  #   hashlist = Covidstats::API.get_reports.select {|hash| hash["Country"] == name} #this is still an array
-  #   hash_attr(hashlist[0])
-  # end
+
   
   def hash_attr(hash)      #given a hash, returns all the attributes
     hash = hash.each do |key, value| 

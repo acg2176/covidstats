@@ -2,19 +2,13 @@
 class Covidstats::Continents
   attr_accessor :total_cases, :new_cases, :total_deaths, :new_deaths, :total_recovered, :active_cases, :total_tests, :name, :serious_critical
   @@all = []
+
   
-  # def initialize(continent_name)
-  #   @continent = continent_name
-  #   merge_hash(continent_name) #select the list of hash by the specified continent and gets the attributes
-  #   save
-  # end
-  
-  def initialize(continent_hash) #hash is aggregated hash
+  def initialize(continent_hash) 
     hash_attr(continent_hash)
     save
   end
-  
-  #merge hashes in the array and aggregate the values
+
   def self.merge_hash(continents_array) #[[{}, {}, {}],
     new_array = []
     continents_array.each do |array|
@@ -60,10 +54,11 @@ class Covidstats::Continents
   end
 
   #find way to loop this
-  def self.continent_reports #for continents: list of hashes per continent
+  def self.continent_reports 
     continents_array = []
     hash_continents = Covidstats::API.get_reports #list of all hashes
-    asia = hash_continents.select{|hash| hash["Continent"] == "Asia"} #list of hashes only for asia
+    
+    asia = hash_continents.select{|hash| hash["Continent"] == "Asia"}
     continents_array << asia
     africa = hash_continents.select{|hash| hash["Continent"] == "Africa"}
     continents_array << africa

@@ -163,16 +163,6 @@ class Covidstats::CLI
     end
     ask_for_choices
   end
-#   Spain: 580
-# UK: 552
-# Italy: 547
-# France: 438
-# Belgium: 808
-# Netherlands: 343
-# Sweden: 418
-# Andorra: 660
-# San Marino: 1238
-# Sint Maarten: 350
 
   
 end
