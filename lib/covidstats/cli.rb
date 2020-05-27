@@ -115,7 +115,7 @@ class Covidstats::CLI
   
   def highest_cases
     get_all_countries
-    
+    #binding.pry
     #find array of country.total_cases
     arr_total_cases = []
     Covidstats::Country.all.each do |country|
@@ -123,12 +123,28 @@ class Covidstats::CLI
         arr_total_cases << country.total_cases
       end
     end
-    arr_total_cases #array of all the total_cases
-    #need to mergesort
     binding.pry
-    arr_total_cases = arr_total_cases.sort {|a, b| a <=> b}
-    top_10_cases
-  
+    top_10_cases = arr_total_cases.sort.reverse[0,10]
+#     [1736743,
+# 396166,
+# 370680,
+# 283849,
+# 267240,
+# 231139,
+# 182722,
+# 181757,
+# 159797,
+# 158077]
+    
+    Covidstats::Country.all.each do |country| #[1,2,34,,56,]
+      top_10_cases.each do |total_case| #[1,2,3,4,5,6,7]
+        binding.pry
+        if total_case == country.total_cases
+          puts "#{country.name}: #{country.total_case}"
+        end
+      end
+    end
+
   end
   
 end

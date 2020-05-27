@@ -40,24 +40,24 @@ class Covidstats::Country
   def hash_attr(hash)      #given a hash, returns all the attributes
     hash = hash.each do |key, value| 
       hash[key] = value.gsub(",","").gsub("+","")
-      if key != "Country" && key != "Continent"
-        hash[key] = value.to_i
+      if key != "Continent" && key != "Country"
+        hash[key] = hash[key].to_i
       end
     end
-    @total_cases = hash.values[1]
-    @new_cases = hash.values[2]
-    @total_deaths = hash.values[3]
-    @new_deaths = hash.values[4]
-    @total_recovered = hash.values[5]
-    @active_cases = hash.values[6]
-    @total_tests = hash.values[7]
-    @population = hash.values[8]
-    @continent = hash.values[9]
-    @deaths_per_mil = hash.values[10]
-    @name = hash.values[11]
-    @serious_critical = hash.values[12]
-    @tests_per_mil = hash.values[13]
-    @total_cases_per_mil = hash.values[14]
+    @total_cases = hash["TotalCases"]
+    @new_cases = hash["NewCases"]
+    @total_deaths = hash["TotalDeaths"]
+    @new_deaths = hash["NewDeaths"]
+    @total_recovered = hash["TotalRecovered"]
+    @active_cases = hash["ActiveCases"]
+    @total_tests = hash["TotalTests"]
+    @population = hash["Population"]
+    @continent = hash["Continent"]
+    @deaths_per_mil = hash["Deaths_1M_pop"]
+    @name = hash["Country"]
+    @serious_critical = hash["Serious_Critical"]
+    @tests_per_mil = hash["Tests_1M_Pop"]
+    @total_cases_per_mil = hash["TotCases_1M_Pop"]
   end
   
 
@@ -67,7 +67,6 @@ class Covidstats::Country
   
   def self.create_from_collection(countries_array)
     countries_array.each do |country|
-       #binding.pry
       self.new(country)
     end     #country is a hash
   end
