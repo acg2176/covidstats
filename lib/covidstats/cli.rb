@@ -7,7 +7,6 @@ class Covidstats::CLI
   
   def get_all_countries
     countries_array = Covidstats::API.get_reports
-    #countries_array.delete_if { |h| h["Country"] == "World" &&  h["Country"] == "Total:" }
     Covidstats::Country.create_from_collection(countries_array)
   end
   
@@ -47,12 +46,14 @@ class Covidstats::CLI
       prompt.choice "stats by country"
       prompt.choice "stats by continent"
       prompt.choice "Top 10 countries with highest cases"
-      prompt.choice "top 10 countries highest testing rate"
-      prompt.choice "top 10 countries highest fatality rate"
+      prompt.choice "Top 10 countries with highest testing rates"
+      prompt.choice "Top 10 countries with highest fatality rates"
     end
    country_select if choice == "stats by country"
    continent_select if choice == "stats by continent"
    highest_cases if choice == "Top 10 countries with highest cases"
+   testing_rates if choice == "Top 10 countries with highest testing rates"
+   fatality_rates if choice == "Top 10 countries with highest fatality rates"
   end
   
   def country_select
@@ -115,35 +116,55 @@ class Covidstats::CLI
   
   def highest_cases
     get_all_countries
-    #binding.pry
-    #find array of country.total_cases
     arr_total_cases = []
-    Covidstats::Country.all.each do |country|
-      if country.name != "World" && country.name != "Total:"
-        arr_total_cases << country.total_cases
-      end
-    end
-    top_10_cases = arr_total_cases.sort.reverse[0,10]
-#     [1736743,
-# 396166,
-# 370680,
-# 283849,
-# 267240,
-# 231139,
-# 182722,
-# 181757,
-# 159797,
-# 158077]
     
-    Covidstats::Country.all.each do |country| #[1,2,34,,56,]
-      top_10_cases.each do |total_case| #[1,2,3,4,5,6,7]
-        #binding.pry
+    Covidstats::Country.all.each {|country| arr_total_cases << country.total_cases}
+    top_10_cases = arr_total_cases.sort.reverse[0,10]
+    
+    Covidstats::Country.all.each do |country|
+      top_10_cases.each do |total_case|
         if total_case == country.total_cases
           puts "#{country.name}: #{country.total_cases}"
         end
       end
     end
-
+    ask_for_choices
   end
+  
+  def testing_rates
+    get_all_countries
+    arr_test_rates = []
+    
+    Covidstats::Country.all.each {|country| arr_test_rates << country.tests_per_mil}
+    top_10_test_rates = arr_test_rates.sort.reverse[0,10]
+    
+    Covidstats::Country.all.each do |country|
+      top_10_test_rates.each do |test_rate|
+        if test_rate == country.tests_per_mil
+          puts "#{country.name}: #{country.tests_per_mil}"
+        end
+      end
+    end
+    ask_for_choices
+  end
+    
+  
+  def fatality_rates
+    get_all_countries
+    arr_fatal_rates = []
+    
+    Covidstats::Country.all.each {|country| arr_fatal_rates << country.deaths_per_mil}
+    top_10_fatal_rates = arr_fatal_rates.sort.reverse[0,10]
+    
+    Covidstats::Country.all.each do |country|
+      top_10_fatal_rates.each do |fatal_rate|
+        if fatal_rate == country.deaths_per_mil
+          puts "#{country.name}: #{country.deaths_per_mil}"
+        end
+      end
+    end
+    ask_for_choices
+  end
+
   
 end

@@ -66,6 +66,8 @@ class Covidstats::Country
   end
   
   def self.create_from_collection(countries_array)
+    countries_array.delete_if { |h| h["Country"] == "World"}
+    countries_array.delete_if { |h| h["Country"] == "Total:"}
     countries_array.each do |country|
       self.new(country)
     end     #country is a hash
