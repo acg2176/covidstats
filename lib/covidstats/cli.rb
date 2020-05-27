@@ -13,8 +13,10 @@ class Covidstats::CLI
   end
   
   def get_all_continents
-    continents_array = Covidstats::Continents.continent_reports
-    Covidstats::Continents.create_from_collection(continents_array)
+    continents_array = Covidstats::Continents.continent_reports #6 total
+    array = Covidstats::Continents.merge_hash(continents_array)#[{}, {}, {},] total
+    Covidstats::Continents.create_from_collection(array)
+    #binding.pry
   end
   
   def ask_for_choices       #asks if there is anything user still wants to do
