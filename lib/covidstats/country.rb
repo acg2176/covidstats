@@ -7,8 +7,7 @@ class Covidstats::Country
     save
   end
   
-  
-  def hash_attr(hash)      #given a hash, returns all the attributes
+  def hash_attr(hash)
     hash = hash.each do |key, value| 
       hash[key] = value.gsub(",","").gsub("+","")
       if key != "Continent" && key != "Country"
@@ -31,7 +30,6 @@ class Covidstats::Country
     @total_cases_per_mil = hash["TotCases_1M_Pop"]
   end
   
-  
   def self.create_from_collection(countries_array)
     countries_array.delete_if { |h| h["Country"] == "World"}
     countries_array.delete_if { |h| h["Country"] == "Total:"}
@@ -48,6 +46,5 @@ class Covidstats::Country
     @@all << self
   end
   
-    
-  
+
 end

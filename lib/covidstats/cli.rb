@@ -1,7 +1,6 @@
-require 'pry'
 class Covidstats::CLI 
   def call
-    puts "Welcome to the daily corona tracker! This CLI app provides real time data regarding the ongoing coronavirus pandemic and includes information from numerous countries. As the USA has become the hardest hit country with nearly 100,000 deaths as of May 2020, this gem includes additional data on USA cases by states.".colorize(:light_green)
+    puts "Welcome to the daily corona tracker! This CLI app provides real time data regarding the ongoing coronavirus pandemic and includes information from numerous countries and continents.".colorize(:light_green)
     get_all_countries
     world_stats
   end
@@ -65,9 +64,9 @@ class Covidstats::CLI
   end
   
   def country_select
-    puts "Enter the name of the country you would like to search:".colorize(:light_green)
-    input = gets.strip #ADD CONSTRAINTS TO WHAT CAN BE PUT IN HERE
-    #select the country where input == country.name
+    puts "Enter the name of the country you would like to search. Please note that for the country United States, please enter".colorize(:light_green) + " USA".colorize(:yellow) + " and for South Korea, please enter".colorize(:light_green) + " S. Korea".colorize(:yellow)
+    input = gets.strip
+    input = input.capitalize if input != "USA" && input != "S. Korea"
     Covidstats::Country.all.each do |country|
       if country.name == input
         display_stats_country(country)
@@ -151,7 +150,6 @@ class Covidstats::CLI
     ask_for_choices
   end
     
-  
   def fatality_rates
     arr_fatal_rates = []
     Covidstats::Country.all.each {|country| arr_fatal_rates << country.deaths_per_mil}

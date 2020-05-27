@@ -7,7 +7,7 @@ class Covidstats::Continents
     save
   end
 
-  def self.merge_hash(continents_array) #[[{}, {}, {}],
+  def self.merge_hash(continents_array)
     new_array = []
     continents_array.each do |array|
       new_hash = {}
