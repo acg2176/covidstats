@@ -1,7 +1,7 @@
 require 'pry'
 class Covidstats::CLI 
   def call
-    puts "Welcome to the daily corona tracker! This CLI app provides real time data regarding the ongoing coronavirus pandemic and includes information from numerous countries. As the USA has become the hardest hit country with nearly 100,000 deaths as of May 2020, this gem includes additional data on USA cases by states."
+    puts "Welcome to the daily corona tracker! This CLI app provides real time data regarding the ongoing coronavirus pandemic and includes information from numerous countries. As the USA has become the hardest hit country with nearly 100,000 deaths as of May 2020, this gem includes additional data on USA cases by states.".colorize(:light_green)
     get_all_countries
     world_stats
   end
@@ -18,20 +18,20 @@ class Covidstats::CLI
   end
   
   def ask_for_choices       
-     puts "Would you like to do anything else? (y/n)"
+     puts "Would you like to do anything else? (y/n)".colorize(:light_green)
       input = gets.strip
       if input == "y"
         list_of_actions
       else
-        puts "Ok, thanks for using Covidstats today!"
+        puts "Ok, thanks for using Covidstats today!".colorize(:light_green)
       end
   end
   
   def world_stats
-    puts "To begin, would you like to see the world statistics for today? (y/n)"
+    puts "To begin, would you like to see the world statistics for today? (y/n)".colorize(:light_green)
     input = gets.strip
     if input == "y"
-      puts "Here are the World Statistics:"
+      puts "Here are the World Statistics:".colorize(:light_green)
       Covidstats::Country.get_world_stats
       ask_for_choices
     else
@@ -41,7 +41,7 @@ class Covidstats::CLI
   
   def list_of_actions
     prompt = TTY::Prompt.new
-    choice = prompt.select("Please select what you would like to do:") do |prompt|
+    choice = prompt.select("Please select what you would like to do:".colorize(:light_green)) do |prompt|
       prompt.choice "stats by country"
       prompt.choice "stats by continent"
       prompt.choice "Top 10 countries with highest cases"
@@ -56,7 +56,7 @@ class Covidstats::CLI
   end
   
   def country_select
-    puts "Enter the name of the country you would like to search:"
+    puts "Enter the name of the country you would like to search:".colorize(:light_green)
     input = gets.strip #ADD CONSTRAINTS TO WHAT CAN BE PUT IN HERE
     #select the country where input == country.name
     Covidstats::Country.all.each do |country|
@@ -70,7 +70,7 @@ class Covidstats::CLI
   def continent_select
     get_all_continents
     prompt = TTY::Prompt.new
-    choice = prompt.select("Please select which continent:") do |prompt|
+    choice = prompt.select("Please select which continent:".colorize(:light_green)) do |prompt|
       prompt.choice "Asia"
       prompt.choice "South America"
       prompt.choice "North America"
@@ -87,29 +87,29 @@ class Covidstats::CLI
   end
   
   def display_stats_country(country)
-    puts "Total Cases: #{country.total_cases}"
-    puts "New Cases: #{country.new_cases}"
-    puts "Total Deaths: #{country.total_deaths}"
-    puts "Total Recovered: #{country.total_recovered}"
-    puts "Active Cases: #{country.active_cases}"
-    puts "Total Tests: #{country.total_tests}"
-    puts "Population: #{country.population}"
-    puts "Continent: #{country.continent}"
-    puts "Deaths per Million: #{country.deaths_per_mil}"
-    puts "Number of Serious/Critical Cases: #{country.serious_critical}"
-    puts "Tests per Million: #{country.tests_per_mil}"
-    puts "Total Cases per Million: #{country.total_cases_per_mil}"
+    puts "Total Cases:".colorize(:magenta) + " #{country.total_cases}".colorize(:yellow)
+    puts "New Cases:".colorize(:magenta) + " #{country.new_cases}".colorize(:yellow)
+    puts "Total Deaths:".colorize(:magenta) + " #{country.total_deaths}".colorize(:yellow)
+    puts "Total Recovered:".colorize(:magenta) + " #{country.total_recovered}".colorize(:yellow)
+    puts "Active Cases:".colorize(:magenta) + " #{country.active_cases}".colorize(:yellow)
+    puts "Total Tests:".colorize(:magenta) + " #{country.total_tests}".colorize(:yellow)
+    puts "Population:".colorize(:magenta) + " #{country.population}".colorize(:yellow)
+    puts "Continent:".colorize(:magenta) + " #{country.continent}".colorize(:yellow)
+    puts "Deaths per Million:".colorize(:magenta) + " #{country.deaths_per_mil}".colorize(:yellow)
+    puts "Number of Serious/Critical Cases:".colorize(:magenta) + " #{country.serious_critical}".colorize(:yellow)
+    puts "Tests per Million:".colorize(:magenta) + " #{country.tests_per_mil}".colorize(:yellow)
+    puts "Total Cases per Million:".colorize(:magenta) + " #{country.total_cases_per_mil}".colorize(:yellow)
   end
   
   def display_stats_continent(continent)
-    puts "Total Cases: #{continent.total_cases}"
-    puts "New Cases: #{continent.new_cases}"
-    puts "Total Deaths: #{continent.total_deaths}"
-    puts "New Deaths: #{continent.new_deaths}"
-    puts "Total Recovered: #{continent.total_recovered}"
-    puts "Active Cases: #{continent.active_cases}"
-    puts "Total Tests: #{continent.total_tests}"
-    puts "Number of Serious/Critical Cases: #{continent.serious_critical}"
+    puts "Total Cases:".colorize(:light_blue) + " #{continent.total_cases}".colorize(:yellow)
+    puts "New Cases:".colorize(:light_blue) + " #{continent.new_cases}".colorize(:yellow)
+    puts "Total Deaths:".colorize(:light_blue) + " #{continent.total_deaths}".colorize(:yellow)
+    puts "New Deaths:".colorize(:light_blue) + " #{continent.new_deaths}".colorize(:yellow)
+    puts "Total Recovered:".colorize(:light_blue) + " #{continent.total_recovered}".colorize(:yellow)
+    puts "Active Cases:".colorize(:light_blue) + " #{continent.active_cases}".colorize(:yellow)
+    puts "Total Tests:".colorize(:light_blue) + " #{continent.total_tests}".colorize(:yellow)
+    puts "Number of Serious/Critical Cases:".colorize(:light_blue) + " #{continent.serious_critical}".colorize(:yellow)
   end
   
   def highest_cases
@@ -151,7 +151,7 @@ class Covidstats::CLI
     top_10_fatal_rates.each do |fatal_rate|  
       Covidstats::Country.all.each do |country|
         if country.deaths_per_mil == fatal_rate
-          puts "#{country.name}:".colorize(:yellow) + " #{country.deaths_per_mil}"
+          puts "#{country.name}:".colorize(:green) + " #{country.deaths_per_mil}".colorize(:yellow)
         end
       end
     end

@@ -76,7 +76,7 @@ class Covidstats::Country
     @world_report.each do |key, value|
       if key != "Country" && key != "#" && value != ""
         value = value.gsub(",","").gsub("+","")  #removes + and , signs
-        puts "#{key}: #{value}"
+        puts "#{key}:".colorize(:red) + " #{value}".colorize(:yellow)
       end
     end
   end
