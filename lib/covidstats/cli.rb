@@ -7,6 +7,7 @@ class Covidstats::CLI
   
   def get_all_countries
     countries_array = Covidstats::API.get_reports
+    #countries_array.delete_if { |h| h["Country"] == "World" && h["Country"] == "Total:" }
     Covidstats::Country.create_from_collection(countries_array)
   end
   
@@ -45,13 +46,13 @@ class Covidstats::CLI
     choice = prompt.select("Please select what you would like to do:") do |prompt|
       prompt.choice "stats by country"
       prompt.choice "stats by continent"
-      prompt.choice "top_10_countries_highest_cases"
+      prompt.choice "Top 10 countries with highest cases"
       prompt.choice "top 10 countries highest testing rate"
       prompt.choice "top 10 countries highest fatality rate"
     end
    country_select if choice == "stats by country"
    continent_select if choice == "stats by continent"
-   highest_cases if choice == "top_10_countries_highest_cases"
+   highest_cases if choice == "Top 10 countries with highest cases"
   end
   
   def country_select
@@ -113,10 +114,15 @@ class Covidstats::CLI
   end
   
   def highest_cases
+    get_all_countries
     Covidstats::Country.all.each do |country|
-      country.total_cases
       #binding.pry
+      if country.name != "World" && country.name != "Total:"
+        total_cases = country.total_cases.to_i
+        puts "#{country.name}: #{total_cases}"
+      end
     end
+    ask_for_choices
   end
   
 end
