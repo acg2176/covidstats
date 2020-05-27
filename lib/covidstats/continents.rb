@@ -1,9 +1,7 @@
-
 class Covidstats::Continents
   attr_accessor :total_cases, :new_cases, :total_deaths, :new_deaths, :total_recovered, :active_cases, :total_tests, :name, :serious_critical
   @@all = []
 
-  
   def initialize(continent_hash) 
     hash_attr(continent_hash)
     save
@@ -53,11 +51,9 @@ class Covidstats::Continents
     new_array
   end
 
-  #find way to loop this
   def self.continent_reports 
     continents_array = []
-    hash_continents = Covidstats::API.get_reports #list of all hashes
-    
+    hash_continents = Covidstats::API.get_reports
     asia = hash_continents.select{|hash| hash["Continent"] == "Asia"}
     continents_array << asia
     africa = hash_continents.select{|hash| hash["Continent"] == "Africa"}
@@ -99,6 +95,5 @@ class Covidstats::Continents
     @@all
   end
   
-  
-  
+
 end

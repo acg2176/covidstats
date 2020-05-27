@@ -32,7 +32,16 @@ class Covidstats::CLI
     input = gets.strip
     if input == "y"
       puts "Here are the World Statistics:".colorize(:light_green)
-      Covidstats::Country.get_world_stats
+      world = Covidstats::API.get_reports[0]
+      puts "Total Cases:".colorize(:red) + " #{world["TotalCases"]}".colorize(:yellow)
+      puts "New Cases:".colorize(:red) + " #{world["NewCases"]}".colorize(:yellow)  
+      puts "Total Deaths:".colorize(:red) + " #{world["TotalDeaths"]}".colorize(:yellow)
+      puts "New Deaths:".colorize(:red) + " #{world["NewDeaths"]}".colorize(:yellow)
+      puts "TotalRecovered:".colorize(:red) + " #{world["TotalRecovered"]}".colorize(:yellow)
+      puts "Active Cases:".colorize(:red) + " #{world["ActiveCases"]}".colorize(:yellow)
+      puts "Deaths per Million:".colorize(:red) + " #{world["Deaths_1M_pop"]}".colorize(:yellow)
+      puts "Number of Serious/Critical Cases:".colorize(:red) + " #{world["Serious_Critical"]}".colorize(:yellow)
+      puts "Total Cases per Million:".colorize(:red) + " #{world["TotCases_1M_Pop"]}".colorize(:yellow)
       ask_for_choices
     else
       list_of_actions
@@ -158,5 +167,4 @@ class Covidstats::CLI
     ask_for_choices
   end
 
-  
 end
