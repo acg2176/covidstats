@@ -16,8 +16,9 @@ class Covidstats::Continents
   
   #merge hashes in the array and aggregate the values
   def self.merge_hash(continents_array)
-    array = []
+    new_array = []
     new_hash = {}
+    new_hash["Continent"] = ""
     new_hash["TotalCases"] = 0 
     new_hash["NewCases"] = 0
     new_hash["TotalDeaths"] = 0 
@@ -26,13 +27,14 @@ class Covidstats::Continents
     new_hash["ActiveCases"] = 0 
     new_hash["TotalTests"] = 0
     new_hash["Serious_Critical"] = 0
-    continents_array.each do |array|
-      array.each do |hash|
+    continents_array.each do |array| #6 total
+      array.each do |hash| #varies
         hash.each do |key, value|
-          if key != "Country" && key != "" && key != "Deaths_1M_pop" && key != "TotCases_1M_Pop" && key != "Population" && key != "Tests_1M_Pop"
-            binding.pry
+          new_hash["Continent"] = hash["Continent"]
+          if key != "Country" && key != "" && key != "Deaths_1M_pop" && key != "TotCases_1M_Pop" && key != "Population" && key != "Tests_1M_Pop" && key != "Continent" && value.class == String
+            #binding.pry
             hash[key] = value.gsub(",","").gsub("+","")
-            hash[key] = hash[key].to_i #FIXED
+            hash[key] = hash[key].to_i
             if key == "TotalCases"
               new_hash["TotalCases"] += hash[key]
             elsif key == "NewCases"
@@ -53,18 +55,34 @@ class Covidstats::Continents
           end
         end
       end
-     array << new_hash
+     new_array << new_hash
     end
-    array
-     #new merged hash with aggregate values {} 
-      #{"TotalCases"=>1916177,
-  # "NewCases"=>0,
-  # "TotalDeaths"=>168515,
-  # "NewDeaths"=>0,
-  # "TotalRecovered"=>892469,
-  # "ActiveCases"=>591308,
-  # "TotalTests"=>32582382,
-  # "Serious_Critical"=>9915}
+    new_array #[{}, {}, {}, {}, {}, {}]
+    #binding.pry
+#     [{"Continent"=>"Australia/Oceania",
+#   "TotalCases"=>5677425,
+#   "NewCases"=>92060,
+#   "TotalDeaths"=>351652,
+#   "NewDeaths"=>4054,
+#   "TotalRecovered"=>2426887,
+#   "ActiveCases"=>2630985,
+#   "TotalTests"=>74836478,
+#   "Serious_Critical"=>53097},
+# {"Continent"=>"Australia/Oceania",
+#   "TotalCases"=>5677425,
+#   "NewCases"=>92060,
+#   "TotalDeaths"=>351652,
+#   "NewDeaths"=>4054,
+#   "TotalRecovered"=>2426887,
+#   "ActiveCases"=>2630985,
+#   "TotalTests"=>74836478,
+#   "Serious_Critical"=>53097},
+# {"Continent"=>"Australia/Oceania",
+#   "TotalCases"=>5677425,
+#   "NewCases"=>92060,
+#   "TotalDeaths"=>351652,
+#   "NewDeaths"=>4054,
+#   "TotalRecovered"=>2426887,
   end
 
   #find way to loop this
@@ -88,9 +106,8 @@ class Covidstats::Continents
   
   def self.create_from_collection(continents_array)
     continents_array.each do |continent| #this is a hash
-      binding.pry
       self.new(continent)
-      @@all
+      binding.pry
     end
   end
   
