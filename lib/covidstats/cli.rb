@@ -13,8 +13,9 @@ class Covidstats::CLI
   end
   
   def get_all_continents
-    continents_array = Covidstats::Continents.continent_reports
-    array = Covidstats::Continents.merge_hash(continents_array)
+    continents_array = Covidstats::Continents.continent_reports #WORKS
+    array = Covidstats::Continents.merge_hash(continents_array) #fix this
+    #binding.pry
     Covidstats::Continents.create_from_collection(array)
   end
   
@@ -78,7 +79,7 @@ class Covidstats::CLI
        prompt.choice "Africa"
       prompt.choice "Australia/Oceania"
     end
-    binding.pry
+    #binding.pry
     Covidstats::Continents.all.each do |continent|
       if continent.name == choice
         display_stats_continent(continent)

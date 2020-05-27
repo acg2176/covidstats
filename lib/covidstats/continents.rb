@@ -15,19 +15,19 @@ class Covidstats::Continents
   end
   
   #merge hashes in the array and aggregate the values
-  def self.merge_hash(continents_array)
+  def self.merge_hash(continents_array) #[[{}, {}, {}],
     new_array = []
-    new_hash = {}
-    new_hash["Continent"] = ""
-    new_hash["TotalCases"] = 0 
-    new_hash["NewCases"] = 0
-    new_hash["TotalDeaths"] = 0 
-    new_hash["NewDeaths"] = 0 
-    new_hash["TotalRecovered"] = 0 
-    new_hash["ActiveCases"] = 0 
-    new_hash["TotalTests"] = 0
-    new_hash["Serious_Critical"] = 0
     continents_array.each do |array|
+      new_hash = {}
+      new_hash["Continent"] = ""
+      new_hash["TotalCases"] = 0 
+      new_hash["NewCases"] = 0
+      new_hash["TotalDeaths"] = 0 
+      new_hash["NewDeaths"] = 0 
+      new_hash["TotalRecovered"] = 0 
+      new_hash["ActiveCases"] = 0 
+      new_hash["TotalTests"] = 0
+      new_hash["Serious_Critical"] = 0
       array.each do |hash|
         hash.each do |key, value|
           new_hash["Continent"] = hash["Continent"]
