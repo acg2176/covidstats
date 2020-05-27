@@ -17,7 +17,7 @@ class Covidstats::CLI
     Covidstats::Continents.create_from_collection(array)
   end
   
-  def ask_for_choices       #asks if there is anything user still wants to do
+  def ask_for_choices       
      puts "Would you like to do anything else? (y/n)"
       input = gets.strip
       if input == "y"
@@ -75,7 +75,7 @@ class Covidstats::CLI
       prompt.choice "South America"
       prompt.choice "North America"
       prompt.choice "Europe"
-       prompt.choice "Africa"
+      prompt.choice "Africa"
       prompt.choice "Australia/Oceania"
     end
     Covidstats::Continents.all.each do |continent|
@@ -114,15 +114,13 @@ class Covidstats::CLI
   
   def highest_cases
     arr_total_cases = []
-    
     Covidstats::Country.all.each {|country| arr_total_cases << country.total_cases}
     top_10_cases = arr_total_cases.sort.reverse[0,10]
-    
     
     top_10_cases.each do |total_case|
       Covidstats::Country.all.each do |country|
         if country.total_cases == total_case
-          puts "#{country.name}: #{country.total_cases}"
+          puts "#{country.name}:".colorize(:red) + " #{country.total_cases}"
         end
       end
     end
@@ -131,15 +129,13 @@ class Covidstats::CLI
   
   def testing_rates
     arr_test_rates = []
-    
     Covidstats::Country.all.each {|country| arr_test_rates << country.tests_per_mil}
     top_10_test_rates = arr_test_rates.sort.reverse[0,10]
-    
     
     top_10_test_rates.each do |test_rate|
       Covidstats::Country.all.each do |country|
         if country.tests_per_mil == test_rate
-          puts "#{country.name}: #{country.tests_per_mil}"
+          puts "#{country.name}:".colorize(:blue) + " #{country.tests_per_mil}"
         end
       end
     end
@@ -149,15 +145,13 @@ class Covidstats::CLI
   
   def fatality_rates
     arr_fatal_rates = []
-    
     Covidstats::Country.all.each {|country| arr_fatal_rates << country.deaths_per_mil}
     top_10_fatal_rates = arr_fatal_rates.sort.reverse[0,10]
-    
     
     top_10_fatal_rates.each do |fatal_rate|  
       Covidstats::Country.all.each do |country|
         if country.deaths_per_mil == fatal_rate
-          puts "#{country.name}: #{country.deaths_per_mil}"
+          puts "#{country.name}:".colorize(:yellow) + " #{country.deaths_per_mil}"
         end
       end
     end
