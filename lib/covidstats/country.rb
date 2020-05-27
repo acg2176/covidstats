@@ -38,7 +38,12 @@ class Covidstats::Country
   # end
   
   def hash_attr(hash)      #given a hash, returns all the attributes
-    hash = hash.each {|key, value| hash[key] = value.gsub(",","").gsub("+","")}
+    hash = hash.each do |key, value| 
+      hash[key] = value.gsub(",","").gsub("+","")
+      if key != "Country" && key != "Continent"
+        hash[key] = value.to_i
+      end
+    end
     @total_cases = hash.values[1]
     @new_cases = hash.values[2]
     @total_deaths = hash.values[3]
@@ -85,5 +90,7 @@ class Covidstats::Country
     end
   end
   
+  
+    
   
 end

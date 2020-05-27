@@ -7,7 +7,7 @@ class Covidstats::CLI
   
   def get_all_countries
     countries_array = Covidstats::API.get_reports
-    #countries_array.delete_if { |h| h["Country"] == "World" && h["Country"] == "Total:" }
+    #countries_array.delete_if { |h| h["Country"] == "World" &&  h["Country"] == "Total:" }
     Covidstats::Country.create_from_collection(countries_array)
   end
   
@@ -115,14 +115,20 @@ class Covidstats::CLI
   
   def highest_cases
     get_all_countries
+    
+    #find array of country.total_cases
+    arr_total_cases = []
     Covidstats::Country.all.each do |country|
-      #binding.pry
       if country.name != "World" && country.name != "Total:"
-        total_cases = country.total_cases.to_i
-        puts "#{country.name}: #{total_cases}"
+        arr_total_cases << country.total_cases
       end
     end
-    ask_for_choices
+    arr_total_cases #array of all the total_cases
+    #need to mergesort
+    binding.pry
+    arr_total_cases = arr_total_cases.sort {|a, b| a <=> b}
+    top_10_cases
+  
   end
   
 end
