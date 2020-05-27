@@ -2,6 +2,7 @@ require 'pry'
 class Covidstats::CLI 
   def call
     puts "Welcome to the daily corona tracker! This CLI app provides real time data regarding the ongoing coronavirus pandemic and includes information from numerous countries. As the USA has become the hardest hit country with nearly 100,000 deaths as of May 2020, this gem includes additional data on USA cases by states."
+    get_all_countries
     world_stats
   end
   
@@ -32,8 +33,6 @@ class Covidstats::CLI
     if input == "y"
       puts "Here are the World Statistics:"
       Covidstats::Country.get_world_stats
-      #world = Covidstats::Country.new("World")
-      #display_stats_country(world)
       ask_for_choices
     else
       list_of_actions
@@ -57,7 +56,6 @@ class Covidstats::CLI
   end
   
   def country_select
-    get_all_countries
     puts "Enter the name of the country you would like to search:"
     input = gets.strip #ADD CONSTRAINTS TO WHAT CAN BE PUT IN HERE
     #select the country where input == country.name
@@ -115,15 +113,15 @@ class Covidstats::CLI
   end
   
   def highest_cases
-    get_all_countries
     arr_total_cases = []
     
     Covidstats::Country.all.each {|country| arr_total_cases << country.total_cases}
     top_10_cases = arr_total_cases.sort.reverse[0,10]
     
-    Covidstats::Country.all.each do |country|
-      top_10_cases.each do |total_case|
-        if total_case == country.total_cases
+    
+    top_10_cases.each do |total_case|
+      Covidstats::Country.all.each do |country|
+        if country.total_cases == total_case
           puts "#{country.name}: #{country.total_cases}"
         end
       end
@@ -132,15 +130,15 @@ class Covidstats::CLI
   end
   
   def testing_rates
-    get_all_countries
     arr_test_rates = []
     
     Covidstats::Country.all.each {|country| arr_test_rates << country.tests_per_mil}
     top_10_test_rates = arr_test_rates.sort.reverse[0,10]
     
-    Covidstats::Country.all.each do |country|
-      top_10_test_rates.each do |test_rate|
-        if test_rate == country.tests_per_mil
+    
+    top_10_test_rates.each do |test_rate|
+      Covidstats::Country.all.each do |country|
+        if country.tests_per_mil == test_rate
           puts "#{country.name}: #{country.tests_per_mil}"
         end
       end
@@ -150,21 +148,31 @@ class Covidstats::CLI
     
   
   def fatality_rates
-    get_all_countries
     arr_fatal_rates = []
     
     Covidstats::Country.all.each {|country| arr_fatal_rates << country.deaths_per_mil}
     top_10_fatal_rates = arr_fatal_rates.sort.reverse[0,10]
     
-    Covidstats::Country.all.each do |country|
-      top_10_fatal_rates.each do |fatal_rate|
-        if fatal_rate == country.deaths_per_mil
+    
+    top_10_fatal_rates.each do |fatal_rate|  
+      Covidstats::Country.all.each do |country|
+        if country.deaths_per_mil == fatal_rate
           puts "#{country.name}: #{country.deaths_per_mil}"
         end
       end
     end
     ask_for_choices
   end
+#   Spain: 580
+# UK: 552
+# Italy: 547
+# France: 438
+# Belgium: 808
+# Netherlands: 343
+# Sweden: 418
+# Andorra: 660
+# San Marino: 1238
+# Sint Maarten: 350
 
   
 end
