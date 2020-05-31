@@ -1,9 +1,7 @@
 =======
 # Covidstats
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/covidstats`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Welcome to Covidstats! This is a daily tracker of the COVID-19 pandemic and features statistics on different countries and continents. Whether you would like to look up how a certain country is doing or the country with the highest cases, this is the gem for you. This was built to be an informative app on the pandemic that has affected the whole world.
 
 ## Installation
 
@@ -23,7 +21,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+To run the program, use the command bin/covidstats.
 
 ## Development
 
