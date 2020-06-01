@@ -66,7 +66,7 @@ class Covidstats::CLI
   def country_select
     puts "Enter the name of the country you would like to search. Please note that for the country United States, please enter".colorize(:light_green) + " USA".colorize(:yellow) + " for United Kingdom, please enter".colorize(:light_green) + " UK".colorize(:yellow) + " and for South Korea, please enter".colorize(:light_green) + " S. Korea".colorize(:yellow)
     input = gets.strip
-    input = input.capitalize if input != "USA" && input != "S. Korea"
+    input = input.capitalize if input != "USA" && input != "S. Korea" && input != "UK"
     Covidstats::Country.all.each do |country|
       if country.name == input
         display_stats_country(country)
