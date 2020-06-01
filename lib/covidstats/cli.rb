@@ -54,7 +54,7 @@ class Covidstats::CLI
       prompt.choice "stats by continent"
       prompt.choice "Top 10 countries with highest cases"
       prompt.choice "Top 10 countries with highest testing rates by tests per million"
-      prompt.choice "Top 10 countries with highest fatality rates with deaths per million"
+      prompt.choice "Top 10 countries with highest fatality rates by deaths per million"
     end
    country_select if choice == "stats by country"
    continent_select if choice == "stats by continent"
