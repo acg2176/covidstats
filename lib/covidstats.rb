@@ -1,4 +1,3 @@
-require 'pry'
 require 'httparty'
 require 'tty-prompt'
 require 'colorize'
