@@ -24,7 +24,7 @@ Or install it yourself as:
 Require the Gem:
 
 ```ruby
-require 'listless'
+require 'covidstats'
 ```
 
 ## Development
