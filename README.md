@@ -21,7 +21,11 @@ Or install it yourself as:
 
 ## Usage
 
-To run the program, use the command bin/covidstats.
+Require the Gem:
+
+```ruby
+require 'listless'
+```
 
 ## Development
 
