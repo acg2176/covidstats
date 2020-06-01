@@ -10,10 +10,10 @@ class Covidstats::Country
   def hash_attr(hash)
     hash = hash.each do |key, value| 
       hash[key] = value.gsub(",","").gsub("+","")
-      if key != "Continent" && key != "Country"
-        hash[key] = hash[key].to_i
+        if key != "Continent" && key != "Country"
+          hash[key] = hash[key].to_i
+        end
       end
-    end
     @total_cases = hash["TotalCases"]
     @new_cases = hash["NewCases"]
     @total_deaths = hash["TotalDeaths"]

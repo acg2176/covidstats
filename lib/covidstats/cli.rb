@@ -17,13 +17,13 @@ class Covidstats::CLI
   end
   
   def ask_for_choices       
-     puts "Would you like to do anything else? (y/n)".colorize(:light_green)
-      input = gets.strip
-      if input == "y"
-        list_of_actions
-      else
-        puts "Ok, thanks for using Covidstats today!".colorize(:light_green)
-      end
+    puts "Would you like to do anything else? (y/n)".colorize(:light_green)
+    input = gets.strip
+    if input == "y"
+      list_of_actions
+    else
+      puts "Ok, thanks for using Covidstats today!".colorize(:light_green)
+    end
   end
   
   def world_stats

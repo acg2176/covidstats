@@ -1,7 +1,3 @@
-require 'pry'
-require 'httparty'
-
-
 class Covidstats::API
    def self.get_reports
     site = HTTParty.get("https://covid19api.io/api/v1/AllReports")
