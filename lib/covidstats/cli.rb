@@ -1,7 +1,9 @@
+require 'pry'
 class Covidstats::CLI 
   def call
     puts "Welcome to the daily corona tracker! This CLI app provides real time data regarding the ongoing coronavirus pandemic and includes information from numerous countries and continents.".colorize(:light_green)
     get_all_countries
+    get_all_continents
     world_stats
   end
   
@@ -64,11 +66,14 @@ class Covidstats::CLI
   end
   
   def country_select
-    puts "Enter the name of the country you would like to search. Please note that for the country United States, please enter".colorize(:light_green) + " USA".colorize(:yellow) + " for United Kingdom, please enter".colorize(:light_green) + " UK".colorize(:yellow) + " and for South Korea, please enter".colorize(:light_green) + " S. Korea".colorize(:yellow)
-    input = gets.strip
-    input = input.capitalize if input != "USA" && input != "S. Korea" && input != "UK"
+    prompt = TTY::Prompt.new
+    choice = prompt.select("Please select which country:".colorize(:light_green)) do |prompt|
+      Covidstats::Country.all.each do |country|
+        prompt.choice "#{country.name}"
+      end
+    end
     Covidstats::Country.all.each do |country|
-      if country.name == input
+      if country.name == choice
         display_stats_country(country)
       end
     end
@@ -76,7 +81,6 @@ class Covidstats::CLI
   end
   
   def continent_select
-    get_all_continents
     prompt = TTY::Prompt.new
     choice = prompt.select("Please select which continent:".colorize(:light_green)) do |prompt|
       prompt.choice "Asia"
