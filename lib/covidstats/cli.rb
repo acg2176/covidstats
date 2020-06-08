@@ -1,4 +1,3 @@
-require 'pry'
 class Covidstats::CLI 
   def call
     puts "Welcome to the daily corona tracker! This CLI app provides real time data regarding the ongoing coronavirus pandemic and includes information from numerous countries and continents.".colorize(:light_green)
